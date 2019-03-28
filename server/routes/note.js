@@ -1,7 +1,7 @@
 var userController = require('../controller/note');
 
 
-/* GET users listing. */
+/* GET users listing. Writing from noorul */
 
 module.exports = function(router) {    
     router.route('/notes').post(function (req, res) { 	
