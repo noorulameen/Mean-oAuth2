@@ -1,0 +1,7 @@
+{
+	"hostname": "localhost",
+	"port": "27017",
+	"database": "todo",
+	"username": "root",
+	"password": "password"
+}
