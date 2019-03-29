@@ -9,24 +9,21 @@ import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
   styleUrls: ['./create.component.css']
 })
 export class CreateComponent implements OnInit {
-    title = 'Add Coin';
+    titlename = 'Add Note';
     angForm: FormGroup;
     constructor(private coinservice: CoinService, private fb: FormBuilder, private router:Router,private _ngZone: NgZone) {
         this.createForm();
        }
     createForm() {
         this.angForm = this.fb.group({
-          name: ['', Validators.required ],
-          price: ['', Validators.required ]
+          title: ['', Validators.required ],
+          contenet: ['', Validators.required ]
        });
       }
   
-    addCoin(name, price) {
-      this.coinservice.addCoin(name, price);
+    addnote(name, price) {
+      this.coinservice.addNote(name, price);
           this.router.navigate(['index']);
-         // location.reload();
-      
-      
   }
   ngOnInit() {
       

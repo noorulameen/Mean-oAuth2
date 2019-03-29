@@ -12,11 +12,11 @@ export class CoinService {
     
 
   constructor(private http: HttpClient,private router: Router) { }
-  addCoin(name, price) {
-      const uri = 'http://localhost:3000/todo/users/addcoin';
+  addNote(name, price) {
+      const uri = 'http://localhost:3000/todo/note/notes';
       const obj = {
-        name: name,
-        price: price
+        title: name,
+        content: price
       }; 
       
       
@@ -25,8 +25,8 @@ export class CoinService {
     }
   
   
-  getCoins() {
-      const uri = 'http://localhost:3000/todo/users/getcoin';
+  getNotes() {
+      const uri = 'http://localhost:3000/todo/note/getnotes';
       return this
               .http
               .get(uri)
@@ -35,9 +35,9 @@ export class CoinService {
               });
     }
   
-  editCoin(id) {
+  editNote(id) {
       
-      const uri = 'http://localhost:3000/todo/users/edit/' + id;
+      const uri = 'http://localhost:3000/todo/note/notes/' + id;
       return this
               .http
               .get(uri)
@@ -46,26 +46,28 @@ export class CoinService {
               });
     }
   
-  updateCoin(name, price, id) {
-      const uri = 'http://localhost:3000/todo/users/update/' + id;
+  updateNote(title, content, id) {
+      
+      console.log(title);
+      const uri = 'http://localhost:3000/todo/note/notes/' + id;
       const obj = {
-        name: name,
-        price: price
+        title: title,
+        content: content
       };
       this
         .http
-        .post(uri, obj)
+        .put(uri, obj)
         .subscribe(res => 
         console.log('Done'));
       this.router.navigate(['/index']);
     }
   
   
-  deleteCoin(id) {
-      const uri = 'http://localhost:3000/todo/users/delete/' + id;
+  deleteNote(id) {
+      const uri = 'http://localhost:3000/todo/note/notes/' + id;
           return this
               .http
-              .get(uri)
+              .delete(uri)
               .map(res => {
                 return res;
               });

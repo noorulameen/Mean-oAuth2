@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch';
@@ -13,7 +13,7 @@ import 'rxjs/add/observable/throw';
 export class AuthenticationService {
         public token: string;
         public refreshToken: string;
-
+        
 
 
         constructor(private http: Http) {
@@ -22,30 +22,45 @@ export class AuthenticationService {
             this.token = currentUser && currentUser.token;
             this.refreshToken = currentUser && currentUser.refreshToken;
         }
-        
+
         login(username: string, password: string): Observable<boolean> {
+            const formData = new URLSearchParams();
+            let headers = new Headers();
+            formData.append('grant_type', 'password');
+            formData.append('username', username);
+            formData.append('password', password);            
+             headers.append('Content-Type', 'application/x-www-form-urlencoded');
+             headers.append('Authorization', "Basic YXBwbGljYXRpb246c2VjcmV01");
+             let options = new RequestOptions({ headers: headers });
+             let data= formData.toString()
             
-            /*return new Promise<any>((resolve, reject) => {
-                this.http.post('http://localhost:3000/todo/users/login', { username: username, password: password }).subscribe(res => {
-                  resolve(res);
-                }, err => {
-                    alert('err')
-                  reject(err);
-                });
-              });*/
-            
-            
-            return this.http.post('http://localhost:3000/todo/users/login', { username: username, password: password })
-                .map((response: Response) => {
-                    // login successful if there's a jwt token in the response
-                    let token = response.json().success && response.json().content[0].token;
-                    let refreshToken = response.json().success && response.json().content[0].refreshToken;
+//            return new Promise<Boolean>((resolve, reject) => {
+//                this.http.post('http://localhost:3000/todo/users/login', data,{headers:headers}).subscribe(response => {
+//                    let token = response.ok && response.json().accessToken;
+//                    let refreshToken = response.ok && response.json().refreshToken;
+//                    this.token = token;
+//                        this.refreshToken = refreshToken;
+//                        // store username and Oauth2 token in local storage to keep user logged in between page refreshes
+//                      localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token, refreshToken:refreshToken}));
+//                  resolve(true);
+//                }, err => {
+//                  reject(false);
+//                });
+//              });
+              
                     
+            return this.http.post('http://localhost:3000/todo/users/login',data,{headers:headers})
+                .map((response: Response) => {
+                    console.log('ameen>>>>>',response)
+                    // login successful if there's a jwt token in the response
+                    let token = response.ok && response.json().accessToken;
+                    let refreshToken = response.ok && response.json().refreshToken;
+                   
                     if (token && refreshToken) {
                        // set token property
                         this.token = token;
                         this.refreshToken = refreshToken;
-                        // store username and jwt token in local storage to keep user logged in between page refreshes
+                        // store username and Oauth2 token in local storage to keep user logged in between page refreshes
                         localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token, refreshToken:refreshToken}));
                         // return true to indicate successful login
                         return true;

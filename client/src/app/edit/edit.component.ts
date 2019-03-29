@@ -14,10 +14,10 @@ import { Observable } from 'rxjs/Observable';
 
 export class EditComponent implements OnInit {
 
-  coin: any;
+  note: any;
   angForm: FormGroup;
   indexComponent: IndexComponent;
-  title = 'Edit Coin';
+  titleName = 'Edit Note';
   constructor(private route: ActivatedRoute, private router: Router, private service: CoinService, private fb: FormBuilder ) {
     this.createForm();
    }
@@ -29,9 +29,10 @@ export class EditComponent implements OnInit {
    });
   }
 
-  updateCoin(name, price) {
+  updatenote(title, content) {
+     
     this.route.params.subscribe(params => {
-    this.service.updateCoin(name, price, params['id']);
+    this.service.updateNote(title, content, params['id']);
     this.router.navigate(['/index']);
     //location.reload();
   });
@@ -41,8 +42,9 @@ export class EditComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.coin = this.service.editCoin(params['id']).subscribe(res => {          
-          this.coin = res.content[0];
+     this.service.editNote(params['id']).subscribe(res => {      
+         console.log('res>>>>>>>>',res);          
+          this.note = res;
       });
     });
   }

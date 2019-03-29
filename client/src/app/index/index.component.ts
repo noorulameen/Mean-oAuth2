@@ -11,28 +11,27 @@ import { ActivatedRoute, Router } from '@angular/router'
 })
 
 export class IndexComponent implements OnInit {
-    coins: any;
+    notes: any;
   constructor(private http: HttpClient, private router: Router, private service: CoinService) { }
 
   ngOnInit() {      
-      this.getCoins();
+      this.getNotes();
   }
   
-  getCoins() {
-      this.service.getCoins().subscribe(res => {
-         this.coins = (res.content !==null && res.content !== undefined)? res.content: res;
-        //  this.coins = res;
-        console.log('test>>>>>',this.coins);
-        
+  getNotes() {
+      this.service.getNotes().subscribe(res => {
+          //console.log('res>>>',res)
+          this.notes = res;
       });
     }
   
-  deleteCoin(id) {
-      this.service.deleteCoin(id).subscribe(res => {          
-        if(res.status == 200 && res.success){
-            this.router.navigate(['/index']);
-            location.reload();
-        }
+  deleteNote(id) {
+      this.service.deleteNote(id).subscribe(res => {  
+            this.router.navigate(['/index']);location.reload();
+        
+//        if(res.status == 200 && res.success){
+//            location.reload();
+//        }
       });
   }
   
