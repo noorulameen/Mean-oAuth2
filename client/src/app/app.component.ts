@@ -10,5 +10,6 @@ import { Router, CanActivate } from '@angular/router';
 export class AppComponent {
   title = 'client';
   log = (localStorage.getItem('currentUser'))? 'logout': 'login'
+  show: boolean = (localStorage.getItem('currentUser'))? true: false;
   
 }

@@ -19,6 +19,7 @@ import { JwtInterceptor } from './_helpers/index';
 
 import { AuthGuard } from './_guards/index';
 import { AuthenticationService, UserService } from './_services/index';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 
@@ -33,7 +34,8 @@ import { AuthenticationService, UserService } from './_services/index';
     IndexComponent,
     CreateComponent,
     EditComponent,
-    LoginComponent
+    LoginComponent,
+    NavbarComponent
     ],
   imports: [
     BrowserModule,

@@ -20,7 +20,6 @@ export class IndexComponent implements OnInit {
   
   getNotes() {
       this.service.getNotes().subscribe(res => {
-          //console.log('res>>>',res)
           this.notes = res;
       });
     }

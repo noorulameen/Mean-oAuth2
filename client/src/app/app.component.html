@@ -1,21 +1,25 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <ul class="nav navbar-nav">
-      <li class="active">
-        <a routerLink="create" routerLinkActive="active">
-          Add coins
-        </a>
-         <a routerLink="login"  routerLinkActive="active">
+<nav *ngIf="show" class="navbar navbar-light bg-faded">
+    
+        <ul class="nav navbar-nav" routerLinkActive="active">
+            <li class="nav-item"><a class="nav navbar-nav" routerLink="index" routerLinkActive="active">
+         Home
+        </a></li>
+        
+        <li class="nav-item"><a class="nav navbar-nav" routerLink="create" routerLinkActive="active">
+          Add Note
+        </a></li>
+            <li class="nav-item"><a class="nav navbar-nav" routerLink="login"  routerLinkActive="active">
           {{log}}
-        </a>
-      </li>    
-    </ul>
-  </div>
+        </a></li>
+        </ul>
 </nav>
-
-
 
 
 <div class="container">
   <router-outlet></router-outlet>
 </div>
+
+
+
+
+

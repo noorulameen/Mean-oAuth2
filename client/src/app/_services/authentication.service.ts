@@ -33,26 +33,9 @@ export class AuthenticationService {
              headers.append('Authorization', "Basic YXBwbGljYXRpb246c2VjcmV01");
              let options = new RequestOptions({ headers: headers });
              let data= formData.toString()
-            
-//            return new Promise<Boolean>((resolve, reject) => {
-//                this.http.post('http://localhost:3000/todo/users/login', data,{headers:headers}).subscribe(response => {
-//                    let token = response.ok && response.json().accessToken;
-//                    let refreshToken = response.ok && response.json().refreshToken;
-//                    this.token = token;
-//                        this.refreshToken = refreshToken;
-//                        // store username and Oauth2 token in local storage to keep user logged in between page refreshes
-//                      localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token, refreshToken:refreshToken}));
-//                  resolve(true);
-//                }, err => {
-//                  reject(false);
-//                });
-//              });
-              
-                    
             return this.http.post('http://localhost:3000/todo/users/login',data,{headers:headers})
                 .map((response: Response) => {
                     console.log('ameen>>>>>',response)
-                    // login successful if there's a jwt token in the response
                     let token = response.ok && response.json().accessToken;
                     let refreshToken = response.ok && response.json().refreshToken;
                    
@@ -64,9 +47,6 @@ export class AuthenticationService {
                         localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token, refreshToken:refreshToken}));
                         // return true to indicate successful login
                         return true;
-                    } else {
-                        // return false to indicate failed login
-                        return false;
                     }
                 })
         }
