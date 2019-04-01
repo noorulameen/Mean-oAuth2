@@ -13,7 +13,7 @@ var todoUser = {
     login: function (req, res) {
         User.findOne({username: req.body.username}, function (err, user) {
             if (!user) {
-               return res.status(404).send({
+               res.status(404).send({
                     message: "Wrong username " + req.body.username
                 });
             } else {
